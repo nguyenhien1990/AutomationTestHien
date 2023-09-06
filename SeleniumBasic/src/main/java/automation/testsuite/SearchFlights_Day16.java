@@ -13,7 +13,7 @@ public final class SearchFlights_Day16 extends automation.common.CommonBase {
 	@BeforeTest
 	  @Parameters({"browser"})
     public static void createDriver(@Optional("chrome") String browser) {
-        setupDriver(browser);
+        //setupDriver(browser);
         driver.get("https://techydevs.com/demos/themes/html/trizen-demo/trizen/index.html");
     }
 	

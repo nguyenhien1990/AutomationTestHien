@@ -35,7 +35,7 @@ public class CommonBase {
 	{
 		ChromeOptions options = new ChromeOptions();
 		System.setProperty("webdriver.chrome.driver",
-		System.getProperty("user.dir") + "\\driver\\chromedriver.exe");		
+				System.getProperty("user.dir") + "\\driver\\chromedriver.exe");		
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		//driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
@@ -43,21 +43,7 @@ public class CommonBase {
 		return driver;
 	}
 	
-	  public static WebDriver setupDriver(String browserName) {
-	        switch (browserName.trim().toLowerCase()) {
-	            case "chrome":
-	                driver = initChromeDriver();
-	                break;
-	            case "firefox":
-	                driver = initFirefoxDriver();
-	                break;
-	            default:
-	                System.out.println("Browser: " + browserName + " is invalid, Launching Chrome as browser of choice...");
-	                driver = initChromeDriver();
-	        }
-	        return driver;
-	    }
-
+	
 	public void inputTextJavaScriptInnerHTML(By inputElement, String companyName) {
 		WebElement element = driver.findElement(inputElement);
 		try {
@@ -102,6 +88,7 @@ public class CommonBase {
 		wait.until(ExpectedConditions.visibilityOf(getElementPresentDOM(locator)));
 		return getElementPresentDOM(locator).isDisplayed();
 	}
+
 	
 	public void click(By locator)
 	{
@@ -179,22 +166,30 @@ public class CommonBase {
         System.out.println("Launching Chrome browser...");
         ChromeOptions options = new ChromeOptions();
 		System.setProperty("webdriver.chrome.driver",
-		System.getProperty("user.dir") + "\\driver\\chromedriver.exe");		
+				System.getProperty("user.dir") + "\\driver\\chromedriver.exe");		
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		return driver;
     }
 
-    public static WebDriver initFirefoxDriver() {
-        System.out.println("Launching Firefox browser...");
-//        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-//        capabilities.setCapability("marionette", true);
-       // FirefoxProfile fxProfile = new FirefoxProfile();
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Admin\\Downloads\\geckodriver-v0.32.0-win64\\geckodriver.exe");	
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        return driver;
-    }
+    public WebDriver initFirefoxDriver()
+	{
+		System.out.println("Lauching Firefox driver.......");
+		System.setProperty("webdriver.gecko.driver",
+				System.getProperty("user.dir") + "\\driver\\geckodriver.exe");		
+		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		return driver;
+	}
+	public WebDriver initMSEdgeDriver()
+	{
+		System.out.println("Lauching MSEdge driver.......");
+		System.setProperty("webdriver.edge.driver",
+		System.getProperty("user.dir") + "\\driver\\msedgedriver.exe");		
+		driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		return driver;
+	}
     
     public WebDriver initFirefoxDriverTest(String URL) {
         System.out.println("Launching Firefox browser...");
@@ -207,5 +202,25 @@ public class CommonBase {
         driver.get(URL);
         driver.manage().window().maximize();
         return driver;
+    }
+        
+    public WebDriver setupDriver(String browserName)
+    {
+    	switch (browserName.trim().toLowerCase()) {
+		case "chrome":
+			driver = initChromeDriver();			
+			break;
+		case "firefox":
+			driver = initFirefoxDriver();
+			break;
+		case "edge":
+			driver = initMSEdgeDriver();
+			break;
+
+		default:
+			driver = initChromeDriver();
+			break;
+		}
+    	return driver;
     }
 }

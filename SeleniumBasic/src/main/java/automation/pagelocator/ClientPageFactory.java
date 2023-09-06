@@ -39,7 +39,8 @@ public class ClientPageFactory {
 	{
 		dashboardPage dashboard = new dashboardPage();
 		driver.findElement(dashboard.lblClient).click();
-		btnAddClient.click();
+		//btnAddClient.click();
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();",btnAddClient);
 		Thread.sleep(3000);
 		rdnTypePerson.click();
 		txtCompanyName.sendKeys(company);

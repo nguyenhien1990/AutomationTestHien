@@ -4,7 +4,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import automation.common.CommonBase;
@@ -16,11 +18,20 @@ import automation.pagelocator.dashboardPage;
 public class Homework1_Day15 extends CommonBase{
 	
 	@BeforeTest
-	public void openApp()
+	@Parameters("testNGBrowser") 
+	public void openPage(String browser) 
 	{
-		driver = initChromeDriver(accountConstant.webURL);
+	  setupDriver(browser); 
+	  driver.get(accountConstant.webURL); 
 	}
+	 
 	
+	 //public void openApp() 
+	//{
+	//	driver =initChromeDriver(accountConstant.webURL); 
+	//}
+	 
+	 
 	@Test
 	public void addClientSuccess() throws InterruptedException
 	{
@@ -33,6 +44,12 @@ public class Homework1_Day15 extends CommonBase{
 		
 		ClientPageFactory client = new ClientPageFactory(driver);
 		client.AddClient("Company1");
+	}
+	
+	@AfterTest
+	public void close()
+	{
+		driver.close();
 	}
 
 }

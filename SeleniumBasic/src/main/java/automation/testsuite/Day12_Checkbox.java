@@ -7,16 +7,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.beust.jcommander.Parameter;
+
 import automation.common.CommonBase;
+import automation.constant.accountConstant;
+
 import org.testng.Assert;
 
 public class Day12_Checkbox extends CommonBase {
-	 //@BeforeTest
-	// public void openPage() {
+	 @BeforeTest
+	 @Parameters("testNGBrowser")
+	 public void openPage(String browser)
+	 {
+		 setupDriver(browser);
+		 driver.get(accountConstant.webURL4);
+	 }
+	 //public void openPage() {
 	//driver = initChromeDriver("http://demo.seleniumeasy.com/basic-checkbox-demo.html");
-	 //}
+	//}
 
 	
 	public void handleCheckbox() {
